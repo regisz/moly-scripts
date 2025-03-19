@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Moly.hu Extend Year Selection in Yearly Plan
 // @namespace    https://github.com/regisz/moly-scripts
-// @version      1.5
+// @version      1.6
 // @description  Expands the year selection dropdown when adding books to the yearly plan on Moly.hu, even after dynamic navigation
 // @author       regisz
 // @match        https://moly.hu/konyvek/*
@@ -11,10 +11,10 @@
 // @homepageURL  https://github.com/regisz/moly-scripts
 // ==/UserScript==
 
-(function() {
+(function () {
     'use strict';
 
-    let lastUrl = location.href; // Store the current URL
+    let lastUrl = location.href;
 
     function expandYearSelection() {
         const yearSelect = document.querySelector('#plan_year');
@@ -25,7 +25,7 @@
         }
 
         const currentYear = new Date().getFullYear();
-        const maxYear = 2035; // Limit expansion to prevent unnecessary entries
+        const maxYear = 2035; // Safety limit
 
         const existingYears = Array.from(yearSelect.options).map(option => parseInt(option.value)).filter(y => !isNaN(y));
         let lastYear = Math.max(...existingYears);
@@ -47,11 +47,7 @@
 
     function observePageChanges() {
         const observer = new MutationObserver(() => {
-            if (location.href !== lastUrl) {
-                console.log("URL changed, re-running script...");
-                lastUrl = location.href;
-                setTimeout(expandYearSelection, 100); // Small delay to allow DOM updates
-            } else if (document.querySelector('#plan_year')) {
+            if (document.querySelector('#plan_year')) {
                 console.log("Detected page change, running script...");
                 expandYearSelection();
             }
@@ -60,21 +56,41 @@
         observer.observe(document.body, { childList: true, subtree: true });
     }
 
-    function checkUrlChange() {
-        setInterval(() => {
+    function detectUrlChange() {
+        new MutationObserver(() => {
             if (location.href !== lastUrl) {
-                console.log("Detected URL change, re-running script...");
+                console.log("URL change detected, re-running script...");
                 lastUrl = location.href;
                 setTimeout(expandYearSelection, 100);
             }
-        }, 500); // Check URL change every 500ms
+        }).observe(document.body, { childList: true, subtree: true });
+
+        window.addEventListener('popstate', () => {
+            console.log("popstate event detected, re-running script...");
+            lastUrl = location.href;
+            setTimeout(expandYearSelection, 100);
+        });
+
+        window.addEventListener('pushState', () => {
+            console.log("pushState event detected, re-running script...");
+            lastUrl = location.href;
+            setTimeout(expandYearSelection, 100);
+        });
+
+        setInterval(() => {
+            if (location.href !== lastUrl) {
+                console.log("Interval detected URL change, re-running script...");
+                lastUrl = location.href;
+                setTimeout(expandYearSelection, 100);
+            }
+        }, 1000);
     }
 
     function init() {
         console.log('Running script to expand year selection...');
         expandYearSelection();
         observePageChanges();
-        checkUrlChange();
+        detectUrlChange();
     }
 
     init();
