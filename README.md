@@ -4,9 +4,9 @@ Tampermonkey scripts for the [Moly.hu website](https://moly.hu).
 
 ## Available Scripts
 
-- **Extend Year Selection**: Expands the available year options in the yearly plan dropdown.  
-  📜 [View Script](https://github.com/regisz/moly-scripts/blob/main/moly_extend_year_selection.user.js)  
-  🔄 [Install/Update](https://github.com/regisz/moly-scripts/raw/main/moly_extend_year_selection.user.js)
+- **Extend Year Selection in Yearly Plan**: Expands the available year options in the yearly plan dropdown.  
+  📜 [View Script](https://github.com/regisz/moly-scripts/blob/main/extend_year_selection_in_yearly_plan.user.js)  
+  🔄 [Install/Update](https://github.com/regisz/moly-scripts/raw/main/extend_year_selection_in_yearly_plan.user.js)
 
 ## Installation
 
