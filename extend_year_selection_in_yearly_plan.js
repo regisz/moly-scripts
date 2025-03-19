@@ -1,11 +1,14 @@
 // ==UserScript==
 // @name         Moly.hu Extend Year Selection in Yearly Plan
 // @namespace    http://tampermonkey.net/
-// @version      1.2
+// @version      1.3
 // @description  Expands the year selection dropdown when adding books to the yearly plan on Moly.hu
 // @author       ChatGPT
 // @match        https://moly.hu/konyvek/*
 // @grant        none
+// @updateURL    https://github.com/regisz/moly-scripts/raw/main/extend_year_selection_in_yearly_plan.js
+// @downloadURL  https://github.com/regisz/moly-scripts/raw/main/extend_year_selection_in_yearly_plan.js
+// @homepageURL  https://github.com/regisz/moly-scripts/blob/main/extend_year_selection_in_yearly_plan.js
 // ==/UserScript==
 
 (function() {
