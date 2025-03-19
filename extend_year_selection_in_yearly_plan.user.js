@@ -1,14 +1,14 @@
 // ==UserScript==
 // @name         Moly.hu Extend Year Selection in Yearly Plan
-// @namespace    http://tampermonkey.net/
-// @version      1.3
-// @description  Expands the year selection dropdown when adding books to the yearly plan on Moly.hu
-// @author       ChatGPT
+// @namespace    https://github.com/regisz/moly-scripts
+// @version      1.4
+// @description  Expands the year selection dropdown when adding books to the yearly plan on Moly.hu, even after dynamic navigation
+// @author       regisz
 // @match        https://moly.hu/konyvek/*
 // @grant        none
-// @updateURL    https://github.com/regisz/moly-scripts/raw/main/extend_year_selection_in_yearly_plan.js
-// @downloadURL  https://github.com/regisz/moly-scripts/raw/main/extend_year_selection_in_yearly_plan.js
-// @homepageURL  https://github.com/regisz/moly-scripts/blob/main/extend_year_selection_in_yearly_plan.js
+// @updateURL    https://raw.githubusercontent.com/regisz/moly-scripts/main/extend_year_selection_in_yearly_plan.user.js
+// @downloadURL  https://raw.githubusercontent.com/regisz/moly-scripts/main/extend_year_selection_in_yearly_plan.user.js
+// @homepageURL  https://github.com/regisz/moly-scripts
 // ==/UserScript==
 
 (function() {
@@ -43,9 +43,15 @@
         }
     }
 
-    function observeDOMChanges() {
-        const observer = new MutationObserver(() => {
-            expandYearSelection();
+    function observePageChanges() {
+        const observer = new MutationObserver((mutations) => {
+            for (const mutation of mutations) {
+                if (mutation.type === 'childList' && document.querySelector('#plan_year')) {
+                    console.log("Detected page change, running script...");
+                    expandYearSelection();
+                    break;
+                }
+            }
         });
 
         observer.observe(document.body, { childList: true, subtree: true });
@@ -54,7 +60,7 @@
     function init() {
         console.log('Running script to expand year selection...');
         expandYearSelection();
-        observeDOMChanges();
+        observePageChanges();
     }
 
     init();
