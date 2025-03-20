@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name         Moly.hu Extend Year Selection in Yearly Plan
 // @namespace    https://github.com/regisz/moly-scripts
-// @version      1.6
+// @version      1.7
 // @description  Expands the year selection dropdown when adding books to the yearly plan on Moly.hu, even after dynamic navigation
 // @author       regisz
 // @match        https://moly.hu/konyvek/*
+// @match        https://moly.hu/*/eves-terv*
 // @grant        none
 // @updateURL    https://raw.githubusercontent.com/regisz/moly-scripts/main/extend_year_selection_in_yearly_plan.user.js
 // @downloadURL  https://raw.githubusercontent.com/regisz/moly-scripts/main/extend_year_selection_in_yearly_plan.user.js
